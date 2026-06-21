@@ -70,17 +70,21 @@ const Card = ({ i, project, progress, total, onProjectClick }) => {
   const imageScale = useTransform(imageProgress, [0, 1], [1.5, 1]);
 
   // Overall section progress tracks when this card shrinks
-  // The card starts shrinking when the NEXT card hits the top of the screen.
-  // If there are 6 cards, each card "occupies" 1/6th of the scroll progress.
-  const startShrink = i / total;
-  // Framer Motion WAAPI crashes if scroll offsets exceed 1
-  const endShrinkOpacity = Math.min(startShrink + 0.3, 1);
+  // The card starts shrinking EXACTLY when it hits the top of the viewport.
+  // Since there are 'total' cards, the total scrollable distance is divided by (total - 1).
+  const isLast = i === total - 1;
+  const startShrink = i / (total - 1 || 1);
+  const safeStart = Math.min(startShrink, 0.999);
   
-  const targetScale = 1 - ((total - i) * 0.04);
-  const scale = useTransform(progress, [startShrink, 1], [1, targetScale]);
-  
-  // If it's the last card, startShrink is ~0.83, endShrinkOpacity is 1. Safe.
-  const opacity = useTransform(progress, [startShrink, endShrinkOpacity], [1, 0.4]);
+  // Target values when this card is fully pushed back by the final card
+  const cardsBehind = total - 1 - i;
+  const targetScale = 1 - (cardsBehind * 0.05);
+  const targetY = -(cardsBehind * 40); // Moves up by 40px for each subsequent card
+  const targetOpacity = isLast ? 1 : 0.3;
+
+  const scale = useTransform(progress, [safeStart, 1], [1, targetScale]);
+  const y = useTransform(progress, [safeStart, 1], [0, targetY]);
+  const opacity = useTransform(progress, [safeStart, Math.min(safeStart + 0.3, 1)], [1, targetOpacity]);
 
   return (
     <div ref={containerRef} className="h-screen sticky top-0 flex items-center justify-center p-[5vw] z-10 pointer-events-none">
@@ -94,8 +98,8 @@ const Card = ({ i, project, progress, total, onProjectClick }) => {
         className="relative flex flex-col w-[95vw] md:w-[70vw] max-w-[1200px] aspect-[4/5] md:aspect-[16/9] rounded-2xl md:rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10 overflow-hidden origin-top group pointer-events-auto"
         style={{ 
           scale, 
-          opacity, 
-          top: `calc(10vh + ${i * 20}px)` 
+          y,
+          opacity 
         }}
       >
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
