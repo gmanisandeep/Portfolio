@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&family=Montserrat:wght@300;400;500;700;900&family=Karla:wght@200;300;400;500;700;800&family=Syne:wght@400;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --scroll-angle: 0deg;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #080808;
+}
+
+body {
+  background-color: #080808;
+  color: #f4f3ef;
+  font-family: 'Karla', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Drifting Animations for Hero Clouds */
+@keyframes drift-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(10%); }
+}
+
+@keyframes drift-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-10%); }
+}
+
+.animate-drift-left {
+  animation: drift-left 60s linear infinite alternate;
+}
+
+.animate-drift-right {
+  animation: drift-right 75s linear infinite alternate;
+}
+
+/* Concentric circles rotating animation */
+@keyframes rotate-concentric {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.animate-rotate-concentric {
+  animation: rotate-concentric 45s linear infinite;
+}
+
+/* Custom background gradient flow animation */
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-flow {
+  animation: gradient-flow 18s ease infinite;
+}
+
+/* Preloader pulse animation */
+@keyframes preloader-pulse {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.animate-preloader-pulse {
+  animation: preloader-pulse 1s infinite alternate;
+}
+
+/* Circular Badge Rotation */
+.rotating-badge-path {
+  transform: rotate(var(--scroll-angle));
+  transform-origin: center;
+}
+
+/* Film Grain Gritty Background */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
