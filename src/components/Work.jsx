@@ -73,12 +73,14 @@ const Card = ({ i, project, progress, total, onProjectClick }) => {
   // The card starts shrinking when the NEXT card hits the top of the screen.
   // If there are 6 cards, each card "occupies" 1/6th of the scroll progress.
   const startShrink = i / total;
-  const endShrink = startShrink + (1 / total); // Shrinks fully by the time the next card is locked in
+  // Framer Motion WAAPI crashes if scroll offsets exceed 1
+  const endShrinkOpacity = Math.min(startShrink + 0.3, 1);
   
   const targetScale = 1 - ((total - i) * 0.04);
   const scale = useTransform(progress, [startShrink, 1], [1, targetScale]);
   
-  const opacity = useTransform(progress, [startShrink, startShrink + 0.3], [1, 0.4]);
+  // If it's the last card, startShrink is ~0.83, endShrinkOpacity is 1. Safe.
+  const opacity = useTransform(progress, [startShrink, endShrinkOpacity], [1, 0.4]);
 
   return (
     <div ref={containerRef} className="h-screen sticky top-0 flex items-center justify-center p-[5vw] z-10 pointer-events-none">
