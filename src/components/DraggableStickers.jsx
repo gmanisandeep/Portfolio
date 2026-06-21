@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 const stickers = [
-  { id: 'clapper', emoji: '🎬', text: 'CUT!', initialX: '12%', initialY: '18%', bg: '#111', textColor: '#f4f3ef', borderColor: '#f4f3ef', shadow: '4px 4px 0px rgba(255,213,0,0.9)', rotate: -6 },
-  { id: 'dev', emoji: '💻', text: '<DEV/>', initialX: '85%', initialY: '48%', bg: '#e13833', textColor: '#f4f3ef', borderColor: '#f4f3ef', shadow: '4px 4px 0px #000', rotate: 8 },
-  { id: 'magic', emoji: '🌟', text: 'MAGIC', initialX: '80%', initialY: '20%', bg: '#ffd500', textColor: '#000', borderColor: '#000', shadow: '4px 4px 0px #000', rotate: 15 },
-  { id: 'reel', emoji: '🎞️', text: 'REEL', initialX: '85%', initialY: '75%', bg: '#000', textColor: '#ffd500', borderColor: '#ffd500', shadow: '4px 4px 0px rgba(244,243,239,0.8)', rotate: -4 }
+  { id: 'films', emoji: '🎬', text: 'Films', desc: 'Cinematic visual storytelling and direction.', initialX: '12%', initialY: '18%', bg: '#111', textColor: '#f4f3ef', borderColor: '#f4f3ef', shadow: '4px 4px 0px rgba(255,213,0,0.9)', rotate: -6 },
+  { id: 'code', emoji: '💻', text: 'Code', desc: 'Full-stack robust application development.', initialX: '85%', initialY: '48%', bg: '#e13833', textColor: '#f4f3ef', borderColor: '#f4f3ef', shadow: '4px 4px 0px #000', rotate: 8 },
+  { id: 'kdm', emoji: '🌟', text: 'KDM', desc: 'Key Decision Making & Creative Direction.', initialX: '80%', initialY: '20%', bg: '#ffd500', textColor: '#000', borderColor: '#000', shadow: '4px 4px 0px #000', rotate: 15 },
+  { id: 'ms', emoji: '🧠', text: 'MS.', desc: 'Mani Sandeep — The driving force behind the vision.', initialX: '85%', initialY: '75%', bg: '#000', textColor: '#ffd500', borderColor: '#ffd500', shadow: '4px 4px 0px rgba(244,243,239,0.8)', rotate: -4 }
 ];
 
 const getRatio = (str) => parseInt(str) / 100;
@@ -16,6 +18,12 @@ export default function DraggableStickers() {
   const engineRef = useRef(null);
   const bodiesRef = useRef([]);
   const [mounted, setMounted] = useState(false);
+  const [activeToast, setActiveToast] = useState(null);
+
+  const handleStickerClick = (desc) => {
+    setActiveToast(desc);
+    setTimeout(() => setActiveToast(null), 3000);
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -120,7 +128,9 @@ export default function DraggableStickers() {
             transform: `translate(-999px, -999px)`,
           }}
         >
-          <div
+          <motion.div
+            whileTap={{ scale: 0.85 }}
+            onPointerDown={() => handleStickerClick(sticker.desc)}
             className="group hover:scale-110 transition-transform duration-200"
             style={{
               background: sticker.bg,
@@ -139,9 +149,22 @@ export default function DraggableStickers() {
           >
             <span style={{ fontSize: '1.25rem' }}>{sticker.emoji}</span>
             <span>{sticker.text}</span>
-          </div>
+          </motion.div>
         </div>
       ))}
+
+      <AnimatePresence>
+        {activeToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 px-6 py-3 bg-black/80 backdrop-blur-md border border-white/20 text-white font-mono text-sm uppercase tracking-widest rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-[100] pointer-events-none"
+          >
+            {activeToast}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
