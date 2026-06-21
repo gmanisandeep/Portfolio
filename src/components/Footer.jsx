@@ -33,22 +33,22 @@ export default function Footer() {
           <ul>
             <li className="mb-3 text-fg/50 text-[0.95rem] group overflow-hidden">
               New Business:{' '}
-              <a href="mailto:hello@manisandeep.dev" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
-                hello@manisandeep.dev
+              <a href="mailto:gmanisandeep@gmail.com?subject=Hello Mani" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
+                gmanisandeep@gmail.com
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-gold group-hover:w-full transition-all duration-300" />
               </a>
             </li>
             <li className="mb-3 text-fg/50 text-[0.95rem] group overflow-hidden">
               Collabs:{' '}
-              <a href="mailto:collab@manisandeep.dev" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
-                collab@manisandeep.dev
+              <a href="mailto:gmanisandeep@gmail.com?subject=Collaboration Inquiry" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
+                Collaborate with me
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-gold group-hover:w-full transition-all duration-300" />
               </a>
             </li>
             <li className="mb-3 text-fg/50 text-[0.95rem] group overflow-hidden">
               Jobs:{' '}
-              <a href="mailto:hire@manisandeep.dev" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
-                hire@manisandeep.dev
+              <a href="mailto:gmanisandeep@gmail.com?subject=Hiring Inquiry" className="text-fg/50 hover:text-accent-gold transition-colors duration-300 relative inline-block">
+                Hire me
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-gold group-hover:w-full transition-all duration-300" />
               </a>
             </li>

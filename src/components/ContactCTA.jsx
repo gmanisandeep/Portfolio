@@ -65,7 +65,7 @@ export default function ContactCTA() {
       <div className="relative z-5">
         <h2 className="font-display text-[clamp(3.2rem,7.5vw,6.8rem)] font-black leading-[0.88] uppercase text-fg max-w-[900px] mx-auto">
           Work with Mani. Give the Supari. Press this button.
-          <MagneticButton href="mailto:manigouda@gmail.com">
+          <MagneticButton href="mailto:gmanisandeep@gmail.com">
             GIVE THE SUPARI
           </MagneticButton>
         </h2>
