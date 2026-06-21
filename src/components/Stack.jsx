@@ -1,4 +1,5 @@
 import React from 'react';
+import AppleEmoji from './AppleEmoji';
 
 const DEV_STACK = [
   { name: 'HTML/CSS', icon: '🌐', color: '#e34f26' },
@@ -51,7 +52,9 @@ export default function Stack() {
                 className="px-5 py-2.5 rounded-full border border-white/10 bg-[#0f0f0f]/80 backdrop-blur-md flex items-center gap-3 hover:border-white/30 transition-colors cursor-default"
                 style={{ boxShadow: `inset 0 0 10px ${skill.color}15` }}
               >
-                <span className="text-xl md:text-2xl">{skill.icon}</span>
+                <span className="text-xl md:text-2xl leading-none flex items-center">
+                  <AppleEmoji emoji={skill.icon} />
+                </span>
                 <span 
                   className="font-heading font-black text-xs md:text-sm uppercase tracking-[0.15em]" 
                   style={{ color: skill.color }}
@@ -76,7 +79,9 @@ export default function Stack() {
                 className="px-5 py-2.5 rounded-full border border-white/10 bg-[#0f0f0f]/80 backdrop-blur-md flex items-center gap-3 hover:border-white/30 transition-colors cursor-default"
                 style={{ boxShadow: `inset 0 0 10px ${skill.color}15` }}
               >
-                <span className="text-xl md:text-2xl">{skill.icon}</span>
+                <span className="text-xl md:text-2xl leading-none flex items-center">
+                  <AppleEmoji emoji={skill.icon} />
+                </span>
                 <span 
                   className="font-heading font-black text-xs md:text-sm uppercase tracking-[0.15em]" 
                   style={{ color: skill.color }}

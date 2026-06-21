@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AppleEmoji from './AppleEmoji';
 
 export default function ProjectModal({ projectIndex, onClose }) {
   const modalData = [
@@ -113,7 +114,7 @@ export default function ProjectModal({ projectIndex, onClose }) {
               <div className="bg-[#0d0d0d] border-b lg:border-b-0 lg:border-r border-fg/10 relative flex items-center justify-center overflow-hidden min-h-[220px] lg:min-h-0">
                 <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle,transparent_30%,rgba(0,0,0,0.85)_120%)]"></div>
                 <div className="text-8xl z-10 drop-shadow-[0_15px_30px_rgba(0,0,0,0.5)]">
-                  {project.emoji}
+                  <AppleEmoji emoji={project.emoji} className="w-[1em] h-[1em]" />
                 </div>
               </div>
 

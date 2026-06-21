@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-
 import { motion, AnimatePresence } from 'framer-motion';
+import AppleEmoji from './AppleEmoji';
 
 const stickers = [
   { id: 'films', emoji: '🎬', text: 'Films', desc: 'Cinematic visual storytelling and direction.', initialX: '12%', initialY: '18%', bg: '#111', textColor: '#f4f3ef', borderColor: '#f4f3ef', shadow: '4px 4px 0px rgba(255,213,0,0.9)', rotate: -6 },
@@ -147,7 +147,9 @@ export default function DraggableStickers() {
               userSelect: 'none',
             }}
           >
-            <span style={{ fontSize: '1.25rem' }}>{sticker.emoji}</span>
+            <span style={{ fontSize: '1.25rem', lineHeight: 1 }}>
+              <AppleEmoji emoji={sticker.emoji} />
+            </span>
             <span>{sticker.text}</span>
           </motion.div>
         </div>
