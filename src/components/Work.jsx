@@ -164,9 +164,10 @@ export default function Work({ onProjectClick }) {
 
   // Dynamically change the background color of the section based on which card is in focus
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (typeof latest !== 'number' || isNaN(latest)) return;
     // Math.round is used so the color changes halfway through the scroll between cards
     const index = Math.min(
-      Math.max(Math.round(latest * projects.length), 0), 
+      Math.max(Math.round(latest * (projects.length - 1)), 0), 
       projects.length - 1
     );
     setActiveProject(index);
@@ -179,7 +180,7 @@ export default function Work({ onProjectClick }) {
       <motion.div 
         className="absolute top-0 left-0 w-full h-full transition-colors duration-1000 ease-out z-0 pointer-events-none"
         animate={{
-          backgroundColor: `${projects[activeProject].accent}15`
+          backgroundColor: `${projects[activeProject]?.accent || '#000000'}15`
         }}
       />
 
