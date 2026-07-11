@@ -5,7 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // Preserved legacy cinematic components are not part of the current application bundle.
+  globalIgnores(['dist', 'src/components/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

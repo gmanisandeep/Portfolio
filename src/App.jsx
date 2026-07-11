@@ -1,84 +1,37 @@
-import React, { useState } from 'react';
-import Preloader from './components/Preloader';
-import CornerNav from './components/CornerNav';
-import Hero from './components/Hero';
-import About from './components/About';
-import Stack from './components/Stack';
-import Work from './components/Work';
-import ContactCTA from './components/ContactCTA';
-import Footer from './components/Footer';
-import ProjectModal from './components/ProjectModal';
-import MediaModal from './components/MediaModal';
-import Cursor from './components/Cursor';
-import ScrollProgress from './components/ScrollProgress';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Check, Code2 as Github, ExternalLink, Mail, MapPin, Menu, Users as Linkedin, X } from 'lucide-react';
 
-// Animated section divider that draws itself on scroll
-function AnimatedDivider() {
-  const ref = React.useRef(null);
-  const [visible, setVisible] = React.useState(false);
+const services = [
+  ['Business Websites', 'Starting from ₹12,000', 'Local businesses, clinics, cafés and professional services', ['Responsive multi-page website', 'Enquiry flows', 'Basic technical SEO']],
+  ['Landing Pages', 'Starting from ₹6,000', 'Campaigns, launches, events and lead generation', ['Conversion-focused layout', 'Mobile-first build', 'Analytics-ready setup']],
+  ['Website Redesign', 'Starting from ₹8,000', 'Businesses with an outdated or difficult website', ['UX and content audit', 'Responsive redesign', 'Performance improvements']],
+  ['Website Maintenance', 'Starting from ₹1,500/month', 'Teams that need dependable ongoing support', ['Content updates', 'Health and link checks', 'Small design and code fixes']],
+  ['Event Websites & Creative Design', 'Custom quotation', 'Exhibitions, conferences and event organisers', ['Event website', 'Promotional creatives', 'Digital collateral']],
+];
+const projects = [
+  ['IRE Expo 2026 — Website and Event Branding', 'Renewable-energy exhibition · Hyderabad', '/ire_expo_thumb.png', 'Create a coherent digital presence for an industry exhibition.', 'Website development, promotional graphics, banners and supporting digital collateral.', ['Node.js', 'Express', 'Creative design']],
+  ['Twinkle AI', 'AI-powered product concept', '/twinkle_ai_thumb.png', 'Explore an interface for an AI assistant across everyday tasks.', 'Product concept, interaction design and AI integration experimentation.', ['Python', 'Gemini API', 'Product design']],
+  ['LifeOS Mobile', 'Personal productivity application', '/lifeos_thumb.png', 'Bring schedules, habits, notes and focused work into one place.', 'Mobile product design and application development.', ['Flutter', 'Firebase', 'UI design']],
+  ['CampusConnect', 'Education platform', '/campus_connect_thumb.png', 'Organise student, faculty and administrative workflows.', 'Interface design, frontend development and backend architecture.', ['React', 'Node.js', 'Express']],
+  ['Short Films & Visual Direction', 'Creative production', '/short_films_thumb.png', 'Develop concise visual stories with a clear tone.', 'Writing, direction, storyboarding and video editing.', ['Premiere Pro', 'DaVinci Resolve']],
+  ['RAFTAAR The Band', 'Music and brand design', '/raftaar_band_thumb.png', 'Create a consistent visual language for shows and social media.', 'Creative direction, promotional design and social content support.', ['Canva', 'Brand design', 'Video editing']],
+];
 
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="relative h-[1px] mx-[10%] overflow-visible flex items-center">
-      <div
-        className="absolute left-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-gold/30 to-transparent transition-all duration-1000 ease-out"
-        style={{ width: visible ? '100%' : '0%' }}
-      />
-      <div
-        className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-accent-gold/40 rotate-45 transition-all duration-500 delay-500"
-        style={{ opacity: visible ? 1 : 0 }}
-      />
-    </div>
-  );
+function Header() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => { const close = e => e.key === 'Escape' && setOpen(false); addEventListener('keydown', close); return () => removeEventListener('keydown', close); }, []);
+  return <header><div className="nav-wrap"><a className="brand" href="#home" aria-label="Mani Sandeep, home">MS<span>.</span></a><button className="menu" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="nav" aria-label={open ? 'Close navigation' : 'Open navigation'}>{open ? <X /> : <Menu />}</button><nav id="nav" className={open ? 'open' : ''} aria-label="Primary navigation">{['Home','Services','Work','About','Contact'].map(x => <a href={`#${x.toLowerCase()}`} key={x} onClick={() => setOpen(false)}>{x}</a>)}<a className="button small" href="#contact">Hire Me</a></nav></div></header>;
 }
-
-export default function App() {
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
-  const [isMediaOpen, setIsMediaOpen] = useState(false);
-
-  return (
-    <>
-      {/* Global Enhancements */}
-      <div className="film-grain" />
-      <Cursor />
-      <ScrollProgress />
-
-      {/* Loading Splash */}
-      <Preloader />
-
-      {/* Screen navigation HUD */}
-      <CornerNav />
-
-      {/* Main flow */}
-      <main className="relative z-10 w-full min-h-screen">
-        <Hero onPlayClick={() => setIsMediaOpen(true)} />
-        <AnimatedDivider />
-        <About />
-        <AnimatedDivider />
-        <Stack />
-        <AnimatedDivider />
-        <Work onProjectClick={(index) => setSelectedProjectIndex(index)} />
-        <ContactCTA />
-      </main>
-
-      <Footer />
-
-      {/* Fullscreen Video overlay */}
-      <MediaModal isOpen={isMediaOpen} onClose={() => setIsMediaOpen(false)} />
-
-      {/* Cinematic Detail popup */}
-      <ProjectModal
-        projectIndex={selectedProjectIndex}
-        onClose={() => setSelectedProjectIndex(null)}
-      />
-    </>
-  );
+function ContactForm() {
+  const [sent, setSent] = useState(false);
+  const submit = e => { e.preventDefault(); const d = new FormData(e.currentTarget); location.href = `mailto:gmanisandeep@gmail.com?subject=${encodeURIComponent(`Project enquiry: ${d.get('type')}`)}&body=${encodeURIComponent(`Name: ${d.get('name')}\nEmail: ${d.get('email')}\nBudget: ${d.get('budget')}\n\n${d.get('message')}`)}`; setSent(true); };
+  return <form onSubmit={submit}><div className="fields"><label>Name<input name="name" autoComplete="name" required /></label><label>Email<input name="email" type="email" autoComplete="email" required /></label></div><div className="fields"><label>Project type<select name="type" required defaultValue=""><option value="" disabled>Select a service</option>{services.map(s => <option key={s[0]}>{s[0]}</option>)}</select></label><label>Budget range<select name="budget" required defaultValue=""><option value="" disabled>Select a range</option><option>₹6,000–₹12,000</option><option>₹12,000–₹25,000</option><option>₹25,000–₹50,000</option><option>₹50,000+</option><option>Not sure yet</option></select></label></div><label>Tell me about your project<textarea name="message" rows="6" minLength="20" required placeholder="What are you building, who is it for, and when do you need it?" /></label><button className="button" type="submit">Send Project Enquiry <ArrowRight size={18} /></button><p className="note">This opens your email app with the enquiry pre-filled. No information is stored on this website.</p><p className="sr-only" aria-live="polite">{sent ? 'Your email app has been opened with the enquiry.' : ''}</p></form>;
 }
+export default function App() { return <><a className="skip" href="#main">Skip to content</a><Header /><main id="main">
+  <section id="home" className="hero shell"><p className="eyebrow"><i /> Available for freelance projects</p><h1>I Build Modern Websites <span>That Help Businesses Grow</span></h1><p className="lead">Web developer and creative designer based in Hyderabad, building responsive business websites, landing pages and digital experiences that turn visitors into enquiries.</p><div className="actions"><a className="button" href="#contact">Start a Project <ArrowRight size={18} /></a><a className="button ghost" href="#work">View My Work</a></div><div className="proof"><span><MapPin size={16}/> Hyderabad, India</span><span>Web development first</span><span>Creative design support</span></div></section>
+  <section id="services" className="shell pad"><Heading kicker="Services" title="Clear solutions for businesses ready to improve their digital presence." text="Every engagement is scoped around your goals, content and timeline. Prices are starting points, not fixed commitments."/><div className="services">{services.map((s,i) => <article key={s[0]}><small>0{i+1}</small><h3>{s[0]}</h3><b>{s[1]}</b><p>Best for: {s[2]}.</p><ul>{s[3].map(x => <li key={x}><Check size={16}/>{x}</li>)}</ul><a href="#contact">Discuss this service <ArrowRight size={16}/></a></article>)}</div></section>
+  <section id="work" className="band pad"><div className="shell"><Heading kicker="Selected work" title="Projects explained through the problem and the work—not just a screenshot." text="Results are included only where they can be verified. These case studies focus on scope, craft and technical execution."/><div className="projects">{projects.map((p,i) => <article className={i===0?'featured':''} key={p[0]}><img src={p[2]} alt={`${p[0]} project preview`} loading={i===0?'eager':'lazy'} decoding="async"/><div><small>{p[1]}</small><h3>{p[0]}</h3><dl><dt>Objective</dt><dd>{p[3]}</dd><dt>Work completed</dt><dd>{p[4]}</dd></dl><div className="tags">{p[5].map(x=><span key={x}>{x}</span>)}</div><a href="#contact">Request project details <ArrowRight size={16}/></a></div></article>)}</div></div></section>
+  <section id="about" className="shell pad about"><div><p className="kicker">About Mani</p><h2>Technical execution with a visual point of view.</h2></div><div><p>I’m Mani Sandeep, a Computer Science graduate based in Hyderabad, India. I work across web development and creative design, with practical experience from internship and event projects.</p><p>That mix helps me shape the structure, interface and visual communication while keeping the build responsive and useful. I’m also exploring AI-powered web experiences where they solve a real user problem.</p><div className="tags">{['React','JavaScript','Node.js','Express','Python','Firebase','UI/UX','Video editing'].map(x=><span key={x}>{x}</span>)}</div><div className="links"><a href="https://github.com/gmanisandeep" target="_blank" rel="noreferrer"><Github size={18}/> GitHub <ExternalLink size={14}/></a><a href="https://linkedin.com/in/mani-sandeep" target="_blank" rel="noreferrer"><Linkedin size={18}/> LinkedIn <ExternalLink size={14}/></a></div></div></section>
+  <section id="contact" className="band pad"><div className="shell contact"><div><p className="kicker">Start a conversation</p><h2>Have a Project in Mind?</h2><p>Tell me what you are building, and I’ll help you choose the right website or digital solution.</p><div className="links"><a href="mailto:gmanisandeep@gmail.com"><Mail size={18}/> gmanisandeep@gmail.com</a><a href="https://linkedin.com/in/mani-sandeep" target="_blank" rel="noreferrer"><Linkedin size={18}/> Connect on LinkedIn</a></div><p className="note">WhatsApp will be added once a verified business number is available.</p></div><ContactForm/></div></section>
+  </main><footer><div className="shell"><a className="brand" href="#home">MS<span>.</span></a><p>Freelance web developer and creative designer in Hyderabad.</p><p>© 2026 Mani Sandeep</p></div></footer></> }
+function Heading({kicker,title,text}) { return <div className="heading"><div><p className="kicker">{kicker}</p><h2>{title}</h2></div><p>{text}</p></div> }
