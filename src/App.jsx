@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, CheckCircle2, Clock3, Download,
-  ExternalLink, GitBranch as Github, Camera as Instagram, Users as Linkedin, Mail, MapPin, Menu,
+  ExternalLink, Mail, MapPin, Menu,
   MessageCircle, ShieldCheck, X,
 } from 'lucide-react';
 
@@ -237,9 +237,18 @@ function ContactForm() {
 
 function Footer({ internal = false }) {
   const prefix = internal ? '/' : '';
-  return <footer><div className="shell footer-main"><div><Brand homeHref="/" footer /><p className="footer-name">Gouda Mani Sandeep</p></div><p>Web developer and AI builder creating clear, responsive digital products from Hyderabad.</p><nav aria-label="Footer navigation"><a href={`${prefix}#work`}>Work</a><a href={`${prefix}#services`}>Services</a><a href={`${prefix}#about`}>About</a><a href={`${prefix}#contact`}>Contact</a></nav><div className="socials"><a href="https://github.com/gmanisandeep" aria-label="GitHub"><Github /></a><a href="https://www.linkedin.com/in/manisandeepg/" aria-label="LinkedIn"><Linkedin /></a><a href="https://www.instagram.com/manisandeepg/" aria-label="Instagram"><Instagram /></a></div></div>
+  return <footer><div className="shell footer-main"><div><Brand homeHref="/" footer /><p className="footer-name">Gouda Mani Sandeep</p></div><p>Web developer and AI builder creating clear, responsive digital products from Hyderabad.</p><nav aria-label="Footer navigation"><a href={`${prefix}#work`}>Work</a><a href={`${prefix}#services`}>Services</a><a href={`${prefix}#about`}>About</a><a href={`${prefix}#contact`}>Contact</a></nav><div className="socials"><a href="https://github.com/gmanisandeep" aria-label="GitHub" target="_blank" rel="noreferrer"><GithubLogo /></a><a href="https://www.linkedin.com/in/manisandeepg/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><LinkedinLogo /></a><a href="https://www.instagram.com/manisandeepg/" aria-label="Instagram" target="_blank" rel="noreferrer"><InstagramLogo /></a><a href="https://x.com/manisandeepg" aria-label="X" target="_blank" rel="noreferrer"><XLogo /></a></div></div>
     <div className="shell footer-bottom"><span>© 2026 Mani Sandeep</span><a href="#top">Back to top <ArrowUp /></a></div></footer>;
 }
+
+function SocialIcon({ children }) {
+  return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor">{children}</svg>;
+}
+
+const GithubLogo = () => <SocialIcon><path d="M12 2.2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.55 9.55 0 0 1 12 7.99c.85 0 1.7.11 2.49.33 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2.2Z" /></SocialIcon>;
+const LinkedinLogo = () => <SocialIcon><path d="M5.15 3.75A2.15 2.15 0 1 1 .85 3.75a2.15 2.15 0 0 1 4.3 0ZM1.1 8h4.1v12.1H1.1V8Zm6.6 0h3.93v1.65h.05c.55-1.04 1.89-2.14 3.89-2.14 4.16 0 4.93 2.74 4.93 6.3v6.29h-4.1v-5.58c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.68H7.7V8Z" /></SocialIcon>;
+const InstagramLogo = () => <SocialIcon><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm-.1 2A3.1 3.1 0 0 0 4 7.1v9.8A3.1 3.1 0 0 0 7.1 20h9.8a3.1 3.1 0 0 0 3.1-3.1V7.1A3.1 3.1 0 0 0 16.9 4H7.1Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></SocialIcon>;
+const XLogo = () => <SocialIcon><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.4L6.47 22H3.36l7.24-8.28L3 2h6.4l4.42 5.84L18.9 2Zm-1.1 18h1.73L8.46 3.9H6.6L17.8 20Z" /></SocialIcon>;
 
 function HomePage() {
   const initialHash = useMemo(() => window.location.hash.slice(1), []);
@@ -269,7 +278,7 @@ function HomePage() {
 
     <section className="skills-section"><div className="shell"><SectionIntro index="05" label="Systems" light title="A practical stack for designing, building and shipping."/><div className="skill-map">{skillGroups.map(([group, skills], index) => <article key={group}><span>0{index + 1}</span><h3>{group}</h3><ul>{skills.map(skill => <li key={skill}>{skill}</li>)}</ul></article>)}</div></div></section>
 
-    <section id="about" className="about-section"><div className="shell about-grid"><div><p className="folio">06 / About</p><h2>Design sense.<br/>Technical depth.<br/><em>Business awareness.</em></h2></div><div className="about-copy"><p>I’m Gouda Mani Sandeep, a Computer Science graduate based in Hyderabad. My work sits between web development, AI, product thinking, branding and creative technology.</p><p>I move across structure, interface, implementation and deployment. That range helps protect the original idea while making the final product useful, responsive and clear.</p><p>I’m open to freelance projects, internships, junior roles and thoughtful collaborations.</p><div className="about-actions"><a className="button button-dark" href="/Mani-Sandeep-Resume.pdf" download>Download Résumé <Download size={17} /></a><a className="arrow-link" href="https://github.com/gmanisandeep" target="_blank" rel="noreferrer"><Github /> GitHub <ExternalLink /></a></div></div></div></section>
+    <section id="about" className="about-section"><div className="shell about-grid"><div><p className="folio">06 / About</p><h2>Design sense.<br/>Technical depth.<br/><em>Business awareness.</em></h2></div><div className="about-copy"><p>I’m Gouda Mani Sandeep, a Computer Science graduate based in Hyderabad. My work sits between web development, AI, product thinking, branding and creative technology.</p><p>I move across structure, interface, implementation and deployment. That range helps protect the original idea while making the final product useful, responsive and clear.</p><p>I’m open to freelance projects, internships, junior roles and thoughtful collaborations.</p><div className="about-actions"><a className="button button-dark" href="/Mani-Sandeep-Resume.pdf" download>Download Résumé <Download size={17} /></a><a className="arrow-link" href="https://github.com/gmanisandeep" target="_blank" rel="noreferrer"><GithubLogo /> GitHub <ExternalLink /></a></div></div></div></section>
 
     <section className="evidence-section"><div className="shell evidence-grid"><p className="folio">07 / Evidence</p><div><h2>Trust should be inspectable.</h2><p>The strongest claims here link to deployed work or describe completed deliverables. Professional references can be shared after permission is confirmed.</p><ul><li><CheckCircle2 /> Live client websites linked directly</li><li><CheckCircle2 /> Contribution and project status labelled</li><li><CheckCircle2 /> Case studies explain constraints and decisions</li></ul></div></div></section>
 
