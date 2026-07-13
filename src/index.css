@@ -21,6 +21,7 @@ img { display:block; max-width:100%; }
 .is-scrolled .nav-shell { background:rgba(244,241,233,.92); border-color:var(--line); backdrop-filter:blur(16px); box-shadow:0 12px 35px rgba(0,0,0,.06); }
 .brand { position:relative; flex:none; width:48px; min-height:38px; display:flex; align-items:center; color:var(--ink); text-decoration:none; font-family:Space Grotesk,sans-serif; }
 .brand-mark { font-size:1.15rem; font-weight:700; letter-spacing:-.05em; }
+.brand-dot { color:var(--red); }
 .brand-name { position:absolute; left:49px; width:115px; opacity:0; transform:translateX(-7px); pointer-events:none; font-size:.78rem; font-weight:600; white-space:nowrap; transition:opacity .25s,transform .25s; }
 .brand:is(:hover,:focus-visible) .brand-name { opacity:1; transform:none; }
 .nav-shell>nav { display:flex; align-items:center; gap:22px; }

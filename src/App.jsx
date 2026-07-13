@@ -137,7 +137,7 @@ function ScrollProgress() {
 
 function Brand({ homeHref = '#top', footer = false }) {
   return <a className={`brand ${footer ? 'brand-footer' : ''}`} href={homeHref} aria-label="Mani Sandeep, home">
-    <span className="brand-mark">MS.</span><span className="brand-name">Mani Sandeep</span>
+    <span className="brand-mark">MS<span className="brand-dot">.</span></span><span className="brand-name">Mani Sandeep</span>
   </a>;
 }
 
