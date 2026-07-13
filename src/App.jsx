@@ -163,8 +163,6 @@ function Header({ internal = false }) {
       const current = targets.reduce((selected, section) => section.getBoundingClientRect().top <= marker ? section : selected, targets[0]);
       const id = current?.id || 'top';
       setActive(id);
-      const next = id === 'top' ? window.location.pathname : `${window.location.pathname}#${id}`;
-      if (`${window.location.pathname}${window.location.hash}` !== next) window.history.replaceState(null, '', next);
     };
     const observer = new IntersectionObserver(updateActiveSection, { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.15, 0.45] });
     targets.forEach((target) => observer.observe(target));
