@@ -24,7 +24,7 @@ img { display:block; max-width:100%; }
 .nav-shell { width:min(1440px,calc(100% - 48px)); min-height:62px; margin:auto; padding:8px 10px 8px 18px; display:flex; align-items:center; justify-content:space-between; border:1px solid transparent; }
 .is-scrolled .nav-shell { background:rgba(244,241,233,.92); border-color:var(--line); backdrop-filter:blur(16px); box-shadow:0 12px 35px rgba(0,0,0,.06); }
 .brand { position:relative; flex:none; width:48px; min-height:38px; display:flex; align-items:center; color:var(--ink); text-decoration:none; font-family:Space Grotesk,sans-serif; }
-.brand-mark { font-size:1.55rem; font-weight:700; letter-spacing:-.05em; }
+.brand-mark { font-size:1.55rem; font-weight:700; letter-spacing:-.05em; white-space:nowrap; }
 .brand-dot { color:var(--red-brand); }
 .brand-name { position:absolute; left:49px; width:115px; opacity:0; transform:translateX(-7px); pointer-events:none; font-size:.78rem; font-weight:600; white-space:nowrap; transition:opacity .25s,transform .25s; }
 .brand:is(:hover,:focus-visible) .brand-name { opacity:1; transform:none; }
