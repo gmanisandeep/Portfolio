@@ -2,7 +2,7 @@ export const site = {
   url: 'https://manisandeep.qzz.io',
   title: 'Mani Sandeep — Creative Web Developer & AI Builder',
   description: 'Hyderabad-based creative developer building responsive websites, AI-powered products and visually distinctive digital experiences.',
-  socialImage: 'https://manisandeep.qzz.io/social-preview.jpg?v=2',
+  socialImage: 'https://manisandeep.qzz.io/social-preview.png?v=3',
 };
 
 export const projects = [
