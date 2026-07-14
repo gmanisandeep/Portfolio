@@ -192,7 +192,13 @@ function SectionIntro({ index, label, title, text, light = false }) {
 }
 
 function ProjectMedia({ project, eager = false }) {
-  return project.image ? <img src={project.image} alt={`${project.title} interface`} width={project.width} height={project.height} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'} decoding="async" />
+  return project.image ? <div className={`project-art project-art-${project.slug}`}>
+    <div className="art-browser">
+      <div className="art-browser-bar" aria-hidden="true"><i/><i/><i/><span>{project.title}</span></div>
+      <img src={project.image} alt={`${project.title} interface`} width={project.width} height={project.height} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'} decoding="async" />
+    </div>
+    <div className="art-detail" aria-hidden="true"><span>UI detail</span><img src={project.image} alt="" width={project.width} height={project.height} loading="lazy" decoding="async" /></div>
+  </div>
     : <div className="project-monogram">TBH<span>{project.category}</span></div>;
 }
 
