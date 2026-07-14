@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, CheckCircle2, Clock3, Download,
+  ArrowDown, ArrowLeft, ArrowUp, ArrowUpRight, Clock3, Download,
   ExternalLink, Mail, MapPin, Menu,
   MessageCircle, ShieldCheck, X,
 } from 'lucide-react';
@@ -100,7 +100,7 @@ const serviceRows = [
   ['06', 'UI/UX & redesign', 'Structure, visual direction and responsive refinement for products that feel dated.', 'From ₹8k'],
 ];
 
-const sections = ['Work', 'Services', 'Process', 'Experience', 'About', 'Contact'];
+const sections = ['Work', 'Services', 'About', 'Contact'];
 const process = ['Discovery', 'Strategy', 'Structure', 'Visual direction', 'Development', 'Testing', 'Launch', 'Improvement'];
 const skillGroups = [
   ['Frontend', ['HTML', 'CSS', 'JavaScript', 'React', 'Responsive design']],
@@ -197,14 +197,22 @@ function ProjectMedia({ project, eager = false }) {
 }
 
 function ProjectCard({ project, index }) {
-  return <article className={`project project-${project.slug} project-layout-${index + 1}`}>
+  return <article className={`project project-${project.slug}`}>
     <div className="project-media"><ProjectMedia project={project} eager={index === 0} /><p className="project-proof"><i /> {project.type} · {project.status}</p><span className="project-index">0{index + 1}</span></div>
     <div className="project-copy"><div className="project-meta"><span>{project.category}</span><span>{project.year}</span></div><h3>{project.title}</h3><p className="contribution">{project.contribution}</p>
       <p className="project-summary">{project.summary}</p>
-      <div className="project-story"><p><strong>Problem</strong>{project.problem}</p><p><strong>Direction</strong>{project.solution}</p><p className="verified"><strong><ShieldCheck size={15} /> Outcome</strong>{project.outcome}</p></div>
+      <p className="project-outcome"><ShieldCheck size={16} /><span><strong>Verified outcome</strong>{project.outcome}</span></p>
       <div className="tech-line">{project.tech.join(' · ')}</div>
-      <div className="project-links"><a className="arrow-link" href={`/work/${project.slug}`}>Read case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">Live site <ExternalLink /></a>}</div>
+      <div className="project-links"><a className="button button-dark" href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">Visit live site <ExternalLink /></a>}</div>
     </div>
+  </article>;
+}
+
+function EvidenceCard({ project }) {
+  return <article className="evidence-card">
+    <div className="evidence-thumb"><ProjectMedia project={project} /></div>
+    <p>{project.type} · {project.status}</p><h3>{project.title}</h3><strong>{project.contribution}</strong>
+    <div><a href={`/work/${project.slug}`}>Case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">Live site <ExternalLink /></a>}</div>
   </article>;
 }
 
@@ -252,7 +260,7 @@ const XLogo = () => <SocialIcon><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.
 
 function HomePage() {
   const initialHash = useMemo(() => window.location.hash.slice(1), []);
-  usePageMeta('Mani Sandeep — Web Developer & AI Builder', 'Portfolio of Mani Sandeep, a Hyderabad-based web developer and AI builder creating responsive websites and practical digital products.');
+  usePageMeta('Mani Sandeep — Creative Web Developer & AI Builder', 'Hyderabad-based creative developer building responsive websites, AI-powered products and visually distinctive digital experiences.');
   useEffect(() => {
     if (!initialHash) return;
     requestAnimationFrame(() => document.getElementById(initialHash)?.scrollIntoView());
@@ -260,15 +268,15 @@ function HomePage() {
   return <><ScrollProgress /><a className="skip-link" href="#main">Skip to content</a><Header /><main id="main">
     <section id="top" className="hero"><div className="hero-grid shell">
       <div className="hero-kicker"><span>Hyderabad / India</span><span>Available for selected projects</span></div>
-      <h1>Digital products with <em>clarity, speed</em> and purpose.</h1>
-      <div className="hero-side"><p>I’m Mani Sandeep—a web developer and AI builder turning practical ideas into responsive, deployed products.</p><div className="hero-actions"><a className="button button-red" href="#work">View Selected Work <ArrowDown size={17} /></a><a className="text-button" href="#contact">Start a Project <ArrowUpRight size={17} /></a></div></div>
+      <h1>Digital products that <em>look sharp</em> and work hard.</h1>
+      <div className="hero-side"><p>Creative web developer and AI builder based in Hyderabad. I design and develop responsive websites, digital products and intelligent interfaces.</p><div className="hero-actions"><a className="button button-red" href="#work">View Selected Work <ArrowDown size={17} /></a><a className="text-button" href="#contact">Start a Project <ArrowUpRight size={17} /></a></div></div>
       <div className="hero-composition" aria-hidden="true"><div className="composition-panel panel-one"><span>WEB / 01</span><strong>Build for clarity.</strong></div><div className="composition-panel panel-two"><span>AI / 02</span><strong>Design for use.</strong></div><div className="composition-rule" /></div>
-      <div className="hero-footer"><p><i /> Freelance · Internships · Junior roles · Collaborations</p><p>Scroll to explore <ArrowDown size={15} /></p></div>
+      <div className="hero-footer"><p><i /> Client websites shipped · AI products in development · Available globally</p><p>Scroll to explore <ArrowDown size={15} /></p></div>
     </div></section>
 
     <aside className="proof-strip"><div className="shell"><span>2 live client websites</span><span>Design → Development → Deployment</span><span>Full-stack + frontend</span><span>Working globally from Hyderabad</span></div></aside>
 
-    <section id="work" className="work-section"><div className="shell"><SectionIntro index="01" label="Selected work" title="Proof before promises." text="Live client platforms, completed academic work and personal products—labelled clearly and explained through decisions, not inflated metrics."/><div className="projects-list">{projects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div></div></section>
+    <section id="work" className="work-section"><div className="shell"><SectionIntro index="01" label="Selected work" title="Work you can inspect." text="Real interfaces, exact responsibilities and honest project status—so you can see what I designed, built and shipped."/><div className="projects-list">{projects.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} />)}</div><div className="section-cta"><p>Planning something with similar ambition?</p><a className="button button-red" href="#contact">Discuss a similar project <ArrowUpRight /></a></div></div></section>
 
     <section id="services" className="services-section"><div className="shell"><SectionIntro index="02" label="Capabilities" light title="From first idea to a working digital product." text="Services are structured around outcomes, with design and development handled as one connected process."/><div className="service-rows">{serviceRows.map(([number, name, copy, price]) => <a href="#contact" className="service-row" key={number}><span>{number}</span><h3>{name}</h3><p>{copy}</p><strong>{price}</strong><ArrowUpRight /></a>)}</div><p className="pricing-disclaimer">Final pricing depends on scope, pages, integrations, content and delivery timeline.</p></div></section>
 
@@ -280,7 +288,7 @@ function HomePage() {
 
     <section id="about" className="about-section"><div className="shell about-grid"><div><p className="folio">06 / About</p><h2>Design sense.<br/>Technical depth.<br/><em>Business awareness.</em></h2></div><div className="about-copy"><p>I’m Gouda Mani Sandeep, a Computer Science graduate based in Hyderabad. My work sits between web development, AI, product thinking, branding and creative technology.</p><p>I move across structure, interface, implementation and deployment. That range helps protect the original idea while making the final product useful, responsive and clear.</p><p>I’m open to freelance projects, internships, junior roles and thoughtful collaborations.</p><div className="about-actions"><a className="button button-dark" href="/Mani-Sandeep-Resume.pdf" download>Download Résumé <Download size={17} /></a><a className="arrow-link" href="https://github.com/gmanisandeep" target="_blank" rel="noreferrer"><GithubLogo /> GitHub <ExternalLink /></a></div></div></div></section>
 
-    <section className="evidence-section"><div className="shell evidence-grid"><p className="folio">07 / Evidence</p><div><h2>Trust should be inspectable.</h2><p>The strongest claims here link to deployed work or describe completed deliverables. Professional references can be shared after permission is confirmed.</p><ul><li><CheckCircle2 /> Live client websites linked directly</li><li><CheckCircle2 /> Contribution and project status labelled</li><li><CheckCircle2 /> Case studies explain constraints and decisions</li></ul></div></div></section>
+    <section id="evidence" className="evidence-section"><div className="shell"><div className="evidence-heading"><p className="folio">07 / Evidence</p><div><h2>Trust should be inspectable.</h2><p>Three working examples with a clear role, current status and a direct route to the proof.</p></div></div><div className="evidence-cards">{projects.slice(0, 3).map(project => <EvidenceCard key={project.slug} project={project} />)}</div></div></section>
 
     <section id="contact" className="contact-section"><div className="shell"><SectionIntro index="08" label="Contact" light title="Have a project, role, or idea worth building?" text="Share the essentials. I’m available daily from 10 AM to 11 PM IST and usually respond within one working day."/><div className="contact-grid"><div className="contact-direct"><a href="https://wa.me/919398116740?text=Hi%20Mani%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp<span>+91 93981 16740</span></a><a href="mailto:gmanisandeep@gmail.com"><Mail /> Email<span>gmanisandeep@gmail.com</span></a><p><Clock3 /> 10 AM—11 PM IST daily</p><p><MapPin /> Hyderabad · Working globally</p></div><ContactForm /></div></div></section>
   </main><Footer /><a className="mobile-contact" href="#contact">Start a Project <ArrowUpRight /></a></>;
