@@ -88,7 +88,7 @@ export const projects = [
     decisions: ['Used a theatrical campaign structure instead of a conventional card grid', 'Organised the story by curse, lineage, screen history and archive', 'Kept motion atmospheric and preserved reduced-motion support'],
     lessons: 'A fan experience becomes more credible when spectacle, information hierarchy and source transparency are designed as one system.',
     tech: ['React', 'Framer Motion', 'Vite', 'Cloudflare Workers'],
-    url: 'https://ghost-rider-fan-archive.manisandeepg.chatgpt.site',
+    url: 'https://ghost-rider-fan-archive.manisandeepg.chatgpt.site', primaryAction: 'live',
     image: '/work/ghost-rider-homepage.webp', imageAlt: 'Ghost Rider Fan Archive homepage with its flaming Rider hero and red wordmark', width: 1600, height: 770,
     detail: '/work/ghost-rider-screen.webp', detailAlt: 'Ghost Rider Fan Archive screen-history section featuring the Ryan Gosling announcement', detailWidth: 1600, detailHeight: 900,
   },

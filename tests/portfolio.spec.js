@@ -20,6 +20,15 @@ test('homepage loads without console errors or broken images', async ({ page, re
   expect(consoleErrors).toEqual([]);
 });
 
+test('Ghost Rider card exposes the live archive as its primary action', async ({ page }) => {
+  await page.goto('/#work');
+  const project = page.locator('.project-ghost-rider');
+  const liveLink = project.getByRole('link', { name: 'View live site' });
+  await expect(liveLink).toHaveAttribute('href', 'https://ghost-rider-fan-archive.manisandeepg.chatgpt.site');
+  await expect(liveLink).toHaveAttribute('target', '_blank');
+  await expect(project.getByRole('link', { name: 'View case study' })).toHaveAttribute('href', '/work/ghost-rider-fan-archive');
+});
+
 test('case-study routes load and expose route-specific initial metadata', async ({ page, request }) => {
   for (const route of caseRoutes) {
     const response = await request.get(route);

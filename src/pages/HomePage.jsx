@@ -24,7 +24,11 @@ function ProjectCard({ project, index }) {
       <p className="project-summary">{project.summary}</p>
       <p className="project-outcome"><ShieldCheck size={16} /><span><strong>Verified outcome</strong>{project.outcome}</span></p>
       <div className="tech-line">{project.tech.join(' · ')}</div>
-      <div className="project-links"><a className="button button-dark" href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">Visit live site <ExternalLink /></a>}</div>
+      <div className="project-links">
+        {project.primaryAction === 'live'
+          ? <><a className="button button-red" href={project.url} target="_blank" rel="noreferrer">View live site <ExternalLink /></a><a href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a></>
+          : <><a className="button button-dark" href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">View live site <ExternalLink /></a>}</>}
+      </div>
     </div>
   </article>;
 }
