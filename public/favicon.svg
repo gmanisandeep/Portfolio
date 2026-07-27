@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">MS. — Mani Sandeep</title>
-  <rect width="64" height="64" rx="10" fill="#f4f1e9"/>
-  <path fill="#111" d="M7 16h8l6 17 6-17h8v32h-7V29l-5 14h-4l-5-14v19H7V16Zm31 9c0-6 5-10 12-10 5 0 9 2 12 5l-5 5c-2-2-4-3-7-3-3 0-5 1-5 3 0 2 2 3 7 4 7 2 10 5 10 10 0 3-1 5-3 7a10 10 0 0 1-2 2H43c-3-1-5-2-7-4l5-6c3 3 6 4 9 4s5-1 5-3c0-2-2-3-7-4-7-2-10-5-10-10Z"/>
-  <circle cx="57" cy="52" r="5" fill="#e5332a"/>
-</svg>
