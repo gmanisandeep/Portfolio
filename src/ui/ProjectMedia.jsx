@@ -6,6 +6,6 @@ export default function ProjectMedia({ project, eager = false, compact = false }
       <div className="art-browser-bar" aria-hidden="true"><i/><i/><i/><span>{project.title}</span></div>
       <img src={project.image} alt={project.imageAlt || `${project.title} desktop interface`} width={project.width} height={project.height} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'} decoding="async" />
     </div>
-    {!compact && project.detail && <div className="art-detail"><span>Feature detail</span><img src={project.detail} alt={`${project.title} feature detail`} width={project.width} height={project.height} loading="lazy" decoding="async" /></div>}
+    {!compact && project.detail && <div className="art-detail"><span>Feature detail</span><img src={project.detail} alt={project.detailAlt || `${project.title} feature detail`} width={project.detailWidth || project.width} height={project.detailHeight || project.height} loading="lazy" decoding="async" /></div>}
   </div>;
 }
