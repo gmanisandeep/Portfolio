@@ -86,6 +86,7 @@ section[id] { scroll-margin-top:104px; }
 .project-art-twinkle { background:#7257d9; }
 .project-art-campus { background:#4e86bd; }
 .project-art-lifeos { background:#7069bd; }
+.project-art-ghost-rider { background:#a11b0d; }
 .art-browser { position:absolute; left:6%; top:9%; width:80%; height:80%; overflow:hidden; border:5px solid #111; border-radius:12px; background:#fff; box-shadow:18px 22px 0 rgba(17,17,17,.2); transform:rotate(-1deg); }
 .art-browser-bar { height:25px; padding:0 9px; display:flex; align-items:center; gap:5px; background:#f2f0eb; border-bottom:1px solid #d4d0c8; }
 .art-browser-bar i { width:6px; height:6px; border-radius:50%; background:#111; opacity:.3; }

@@ -32,7 +32,7 @@ The production build creates route-specific HTML for:
 - `/work/twinkle-ai`
 - `/work/campus-connect`
 - `/work/life-os`
-- `/work/tbh-creatives`
+- `/work/ghost-rider-fan-archive`
 
 Netlify configuration is kept in `public/_headers` and `public/_redirects`. Unknown routes use the custom `public/404.html` response instead of an SPA catch-all.
 

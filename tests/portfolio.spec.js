@@ -7,7 +7,7 @@ const caseRoutes = [
   '/work/twinkle-ai',
   '/work/campus-connect',
   '/work/life-os',
-  '/work/tbh-creatives',
+  '/work/ghost-rider-fan-archive',
 ];
 
 test('homepage loads without console errors or broken images', async ({ page, request }) => {
