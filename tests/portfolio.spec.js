@@ -56,6 +56,17 @@ test('hash navigation, menu keyboard behavior and logo return work', async ({ pa
   await expect(page).toHaveURL(/\/$/);
 });
 
+test('direct contact hash settles on the contact section and retracts the mobile CTA', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/#contact');
+  await page.waitForTimeout(650);
+  const contactBounds = await page.locator('#contact').boundingBox();
+  expect(contactBounds.y).toBeLessThan(260);
+  expect(contactBounds.y + contactBounds.height).toBeGreaterThan(0);
+  await expect(page.locator('.mobile-contact')).toHaveClass(/is-hidden/);
+  await expect(page.locator('.mobile-contact')).toHaveAttribute('aria-hidden', 'true');
+});
+
 for (const viewport of [
   { width: 320, height: 568 }, { width: 360, height: 800 }, { width: 375, height: 667 },
   { width: 390, height: 844 }, { width: 393, height: 873 }, { width: 430, height: 932 },

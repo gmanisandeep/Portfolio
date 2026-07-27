@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowDown, ArrowUpRight, Clock3, ExternalLink, Mail, MapPin,
   MessageCircle, ShieldCheck,
@@ -40,11 +40,35 @@ function EvidenceCard({ project }) {
 
 export default function HomePage() {
   const initialHash = useMemo(() => window.location.hash.slice(1), []);
+  const [mobileContactHidden, setMobileContactHidden] = useState(false);
 
   useEffect(() => {
     if (!initialHash) return;
-    requestAnimationFrame(() => document.getElementById(initialHash)?.scrollIntoView());
+    const scrollToTarget = () => document.getElementById(initialHash)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const frame = requestAnimationFrame(scrollToTarget);
+    const timeout = window.setTimeout(scrollToTarget, 500);
+    window.addEventListener('load', scrollToTarget, { once: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
+      window.removeEventListener('load', scrollToTarget);
+    };
   }, [initialHash]);
+
+  useEffect(() => {
+    const targets = [document.getElementById('contact'), document.querySelector('footer')].filter(Boolean);
+    const visibleTargets = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleTargets.add(entry.target);
+        else visibleTargets.delete(entry.target);
+      });
+      setMobileContactHidden(visibleTargets.size > 0);
+    }, { threshold: 0.01 });
+
+    targets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, []);
 
   return <><PageMeta /><ScrollProgress /><a className="skip-link" href="#main">Skip to content</a><Header /><main id="main">
     <section id="top" className="hero"><div className="hero-grid shell">
@@ -73,5 +97,5 @@ export default function HomePage() {
     <section id="evidence" className="evidence-section"><div className="shell"><div className="evidence-heading"><p className="folio">07 / Evidence</p><div><h2>Trust should be inspectable.</h2><p>A separate verification layer for deployed work and a public working prototype—not a second project gallery.</p></div></div><div className="evidence-cards">{projects.filter((project) => project.evidenceType).map(project => <EvidenceCard key={project.slug} project={project} />)}</div></div></section>
 
     <section id="contact" className="contact-section"><div className="shell"><SectionIntro index="08" label="Contact" light title="Have a project, role, or idea worth building?" text="Share the essentials. I usually respond within one working day."/><div className="contact-grid"><div className="contact-direct"><a href="https://wa.me/919398116740?text=Hi%20Mani%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp<span>+91 93981 16740</span></a><a href="mailto:gmanisandeep@gmail.com"><Mail /> Email<span>gmanisandeep@gmail.com</span></a><p><Clock3 /> 10 AM—11 PM IST daily</p><p><MapPin /> Hyderabad · Working globally</p></div><ContactForm /></div></div></section>
-  </main><Footer /><a className="mobile-contact" href="#contact">Start a Project <ArrowUpRight /></a></>;
+  </main><Footer /><a className={`mobile-contact${mobileContactHidden ? ' is-hidden' : ''}`} href="#contact" aria-hidden={mobileContactHidden || undefined} tabIndex={mobileContactHidden ? -1 : undefined}>Start a Project <ArrowUpRight /></a></>;
 }
