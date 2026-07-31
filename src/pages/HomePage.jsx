@@ -7,6 +7,7 @@ import { processSteps, projects, services, skillGroups } from '../data/portfolio
 import ContactForm from '../forms/ContactForm';
 import PageMeta from '../seo/PageMeta';
 import ProjectMedia from '../ui/ProjectMedia';
+import LiveSiteLink from '../ui/LiveSiteLink';
 import { Footer, GithubLogo, Header, ScrollProgress } from '../ui/SiteChrome';
 
 function SectionIntro({ index, label, title, text, light = false }) {
@@ -26,8 +27,8 @@ function ProjectCard({ project, index }) {
       <div className="tech-line">{project.tech.join(' · ')}</div>
       <div className="project-links">
         {project.primaryAction === 'live'
-          ? <><a className="button button-red" href={project.url} target="_blank" rel="noreferrer">View live site <ExternalLink /></a><a href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a></>
-          : <><a className="button button-dark" href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">View live site <ExternalLink /></a>}</>}
+          ? <><LiveSiteLink className="button button-red" project={project} /><a href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a></>
+          : <><a className="button button-dark" href={`/work/${project.slug}`}>View case study <ArrowUpRight /></a>{project.url && <LiveSiteLink project={project} />}</>}
       </div>
     </div>
   </article>;
@@ -38,7 +39,7 @@ function EvidenceCard({ project }) {
     <div className="evidence-thumb"><ProjectMedia project={project} compact /></div>
     <p>{project.evidenceType}</p><h3>{project.title}</h3>
     <dl><div><dt>Role</dt><dd>{project.contribution}</dd></div><div><dt>Status</dt><dd>{project.status}</dd></div></dl>
-    <div><a href={`/work/${project.slug}`}>Inspect case study <ArrowUpRight /></a>{project.url && <a href={project.url} target="_blank" rel="noreferrer">Open proof <ExternalLink /></a>}</div>
+    <div><a href={`/work/${project.slug}`}>Inspect case study <ArrowUpRight /></a>{project.url && <LiveSiteLink project={project}>Open proof</LiveSiteLink>}</div>
   </article>;
 }
 
