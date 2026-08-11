@@ -7,7 +7,6 @@ const caseRoutes = [
   '/work/suprabha-trust',
   '/work/twinkle-ai',
   '/work/campus-connect',
-  '/work/life-os',
   '/work/ghost-rider-fan-archive',
 ];
 
@@ -108,7 +107,7 @@ test('tablet, desktop, wide and mobile-landscape viewports preserve layout bound
       cards: document.querySelectorAll('.project').length,
     }));
     expect(bounds.scroll, `${viewport.width}x${viewport.height}`).toBe(bounds.client);
-    expect(bounds.cards).toBe(7);
+    expect(bounds.cards).toBe(6);
   }
 });
 
