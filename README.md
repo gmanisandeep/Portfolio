@@ -6,7 +6,7 @@ An editorial portfolio for Mani Sandeep, a creative web developer and AI builder
 
 - React 19 and Vite 8
 - Hand-authored responsive CSS
-- Build-time HTML generation for six case-study routes
+- Build-time HTML generation for seven case-study routes
 - Netlify Forms for project enquiries
 - Playwright and axe-core for regression and accessibility checks
 
@@ -27,6 +27,7 @@ pnpm test:e2e
 
 The production build creates route-specific HTML for:
 
+- `/work/union-bank-redesign`
 - `/work/dhan-enterprises`
 - `/work/suprabha-trust`
 - `/work/twinkle-ai`

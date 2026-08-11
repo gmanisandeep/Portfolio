@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 const caseRoutes = [
+  '/work/union-bank-redesign',
   '/work/dhan-enterprises',
   '/work/suprabha-trust',
   '/work/twinkle-ai',
@@ -107,7 +108,7 @@ test('tablet, desktop, wide and mobile-landscape viewports preserve layout bound
       cards: document.querySelectorAll('.project').length,
     }));
     expect(bounds.scroll, `${viewport.width}x${viewport.height}`).toBe(bounds.client);
-    expect(bounds.cards).toBe(6);
+    expect(bounds.cards).toBe(7);
   }
 });
 
