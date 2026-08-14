@@ -19,6 +19,7 @@ export const projects = [
     lessons: 'Trust in financial interfaces comes from clarity, restraint and honest boundaries—not visual polish alone.',
     disclaimer: 'Independent portfolio concept. Not commissioned, approved or endorsed by Union Bank of India. No banking credentials or customer data are collected.',
     tech: ['React', 'Vite', 'Motion', 'Responsive UX', 'Accessibility'],
+    url: '/union-bank/',
     image: '/work/union-bank-home.png', imageAlt: 'Union Bank redesign concept homepage with a modern banking hero and official brand colours', width: 1265, height: 712,
     detail: '/work/union-bank-services.png', detailAlt: 'Searchable service directory in the Union Bank redesign concept', detailWidth: 1265, detailHeight: 712,
   },
