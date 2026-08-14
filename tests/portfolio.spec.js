@@ -24,8 +24,7 @@ test('Ghost Rider card exposes the live archive as its primary action', async ({
   await page.goto('/#work');
   const project = page.locator('.project-ghost-rider');
   const liveLink = project.getByRole('link', { name: 'View live site' });
-  await expect(liveLink).toHaveAttribute('href', 'https://ghost-rider-fan-archive.manisandeepg.chatgpt.site');
-  await expect(liveLink).toHaveAttribute('target', '_blank');
+  await expect(liveLink).toHaveAttribute('href', '/ghost-rider/');
   await expect(project.getByRole('link', { name: 'View case study' })).toHaveAttribute('href', '/work/ghost-rider-fan-archive');
 });
 
@@ -37,6 +36,40 @@ test('Union Bank case study links to the embedded live prototype', async ({ page
   await page.goto('/work/union-bank-redesign');
   await expect(page.getByRole('link', { name: 'View live site' })).toHaveAttribute('href', '/union-bank/');
   expect((await request.get('/union-bank/')).ok()).toBeTruthy();
+});
+
+test('Union Bank prototype stays image-complete and overflow-free across devices', async ({ page }) => {
+  const consoleErrors = [];
+  page.on('console', (message) => message.type() === 'error' && consoleErrors.push(message.text()));
+
+  for (const viewport of [
+    { width: 320, height: 568 },
+    { width: 390, height: 844 },
+    { width: 768, height: 1024 },
+    { width: 1024, height: 768 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/union-bank/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Money moves');
+    await page.locator('.life-image img').scrollIntoViewIfNeeded();
+    await expect.poll(async () => page.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
+    const bounds = await page.evaluate(() => ({ client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth }));
+    expect(bounds.scroll, `${viewport.width}x${viewport.height}`).toBe(bounds.client);
+  }
+
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto('/union-bank/');
+  await page.getByRole('button', { name: 'Open menu' }).click();
+  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('navigation', { name: 'Main navigation' })).toBeHidden();
+  await page.getByRole('button', { name: 'Login securely' }).first().click();
+  await expect(page.getByRole('dialog', { name: 'Bank on the official site' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'Bank on the official site' })).toBeHidden();
+
+  expect(consoleErrors).toEqual([]);
 });
 
 test('case-study routes load and expose route-specific initial metadata', async ({ page, request }) => {
