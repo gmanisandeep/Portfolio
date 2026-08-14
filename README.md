@@ -27,11 +27,11 @@ pnpm test:e2e
 
 The production build creates route-specific HTML for:
 
+- `/work/union-bank-redesign`
 - `/work/dhan-enterprises`
 - `/work/suprabha-trust`
 - `/work/twinkle-ai`
 - `/work/campus-connect`
-- `/work/life-os`
 - `/work/ghost-rider-fan-archive`
 - `/ghost-rider/` — the complete Ghost Rider archive, embedded in this repository
 

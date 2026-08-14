@@ -7,6 +7,22 @@ export const site = {
 
 export const projects = [
   {
+    slug: 'union-bank-redesign', artKey: 'union-bank', type: 'Independent UX Concept', status: 'Complete Prototype', year: '2026', category: 'Banking · Product redesign · Service discovery',
+    title: 'Union Bank Digital Banking Redesign', contribution: 'UX audit, product design and frontend development',
+    summary: 'A mobile-first redesign concept that turns a dense internet-banking portal into a clear, searchable and security-aware service experience.',
+    problem: 'Union Bank’s public internet-banking portal exposes a wide range of useful services, but dated presentation, dense navigation and fragmented entry points make them harder to discover—especially on smaller screens.',
+    solution: 'I created a responsive banking concept with focused quick actions, a searchable 89-service directory, category navigation, security guidance and clearly marked handoffs to official Union Bank pages.',
+    outcome: 'A complete responsive React prototype demonstrates the redesigned homepage, service discovery model, support journeys and safe official-site handoffs across desktop and mobile.',
+    role: 'I independently audited the public experience, mapped its service catalogue, defined the visual and interaction system, built the responsive interface and tested the core journeys.',
+    constraints: ['The concept could not imply endorsement or affiliation', 'No screen could collect or imitate real banking credentials', 'A large catalogue of services had to remain easy to scan on mobile'],
+    decisions: ['Kept Union Bank’s recognisable red and blue while modernising the surrounding system', 'Made service search and category filters the centre of the information architecture', 'Redirected sensitive actions to official bank pages instead of reproducing authenticated flows'],
+    lessons: 'Trust in financial interfaces comes from clarity, restraint and honest boundaries—not visual polish alone.',
+    disclaimer: 'Independent portfolio concept. Not commissioned, approved or endorsed by Union Bank of India. No banking credentials or customer data are collected.',
+    tech: ['React', 'Vite', 'Motion', 'Responsive UX', 'Accessibility'],
+    image: '/work/union-bank-home.png', imageAlt: 'Union Bank redesign concept homepage with a modern banking hero and official brand colours', width: 1265, height: 712,
+    detail: '/work/union-bank-services.png', detailAlt: 'Searchable service directory in the Union Bank redesign concept', detailWidth: 1265, detailHeight: 712,
+  },
+  {
     slug: 'dhan-enterprises', legacySlug: 'dhan', artKey: 'dhan', type: 'Client Project', status: 'Live', year: '2026', category: 'Renewable energy · Business · Events',
     title: 'Dhan Enterprises & IRE Expo 2026', contribution: 'Full-stack website development', evidenceType: 'Live production website',
     summary: 'A public business and event platform that connects renewable-energy services, expo communication and registration workflows.',
@@ -61,20 +77,6 @@ export const projects = [
     lessons: 'Role-based products become easier to maintain when permissions, information architecture and UI states are designed together.',
     tech: ['Authentication', 'Role-based access', 'Database', 'Responsive UI'],
     image: '/work/campus_connect_thumb.webp', width: 1024, height: 1024,
-  },
-  {
-    slug: 'life-os', legacySlug: 'lifeos', artKey: 'lifeos', type: 'Personal Product', status: 'In Development', year: '2026', category: 'Productivity · Behaviour intelligence',
-    title: 'Life OS', contribution: 'System concept and application development',
-    summary: 'A privacy-aware behaviour-mirroring system built around local activity records, goals and recurring patterns.',
-    problem: 'Traditional productivity tools record tasks but reveal little about behaviour, goals and recurring patterns.',
-    solution: 'I created a Windows Python agent with local activity records, goal tracking, behavioural loops and a Flutter foundation.',
-    outcome: 'The goals ontology, behavioural-loop and stabilisation phases are complete; the broader product remains in progress.',
-    role: 'Product concept, behaviour model, Windows agent, local data structure and Flutter application foundation.',
-    constraints: ['Personal activity data should remain local by default', 'Signals needed a consistent ontology', 'The interface had to support future cross-platform use'],
-    decisions: ['Started with local JSON records', 'Separated observation from interpretation', 'Built the Flutter shell after stabilising the core behaviour model'],
-    lessons: 'Personal analytics is only useful when the data model is understandable and the privacy boundary is explicit.',
-    tech: ['Python', 'Flutter', 'Dart', 'JSON storage'],
-    image: '/work/lifeos_thumb.webp', width: 1024, height: 1024,
   },
   {
     slug: 'ghost-rider-fan-archive', legacySlug: 'ghost-rider', artKey: 'ghost-rider', type: 'Personal Project', status: 'Live', year: '2026', category: 'Film fan archive · Editorial experience',

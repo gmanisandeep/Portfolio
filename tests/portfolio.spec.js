@@ -2,11 +2,11 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 const caseRoutes = [
+  '/work/union-bank-redesign',
   '/work/dhan-enterprises',
   '/work/suprabha-trust',
   '/work/twinkle-ai',
   '/work/campus-connect',
-  '/work/life-os',
   '/work/ghost-rider-fan-archive',
 ];
 
