@@ -29,6 +29,16 @@ test('Ghost Rider card exposes the live archive as its primary action', async ({
   await expect(project.getByRole('link', { name: 'View case study' })).toHaveAttribute('href', '/work/ghost-rider-fan-archive');
 });
 
+test('Union Bank case study links to the embedded live prototype', async ({ page, request }) => {
+  await page.goto('/#work');
+  const project = page.locator('.project-union-bank');
+  await expect(project.getByRole('link', { name: 'View live site' })).toHaveAttribute('href', '/union-bank/');
+
+  await page.goto('/work/union-bank-redesign');
+  await expect(page.getByRole('link', { name: 'View live site' })).toHaveAttribute('href', '/union-bank/');
+  expect((await request.get('/union-bank/')).ok()).toBeTruthy();
+});
+
 test('case-study routes load and expose route-specific initial metadata', async ({ page, request }) => {
   for (const route of caseRoutes) {
     const response = await request.get(route);

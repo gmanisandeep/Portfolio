@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://manisandeep.qzz.io/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://manisandeep.qzz.io/work/union-bank-redesign</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://manisandeep.qzz.io/work/dhan-enterprises</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://manisandeep.qzz.io/work/suprabha-trust</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://manisandeep.qzz.io/work/twinkle-ai</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://manisandeep.qzz.io/work/campus-connect</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://manisandeep.qzz.io/work/life-os</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://manisandeep.qzz.io/work/ghost-rider-fan-archive</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://manisandeep.qzz.io/ghost-rider/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://manisandeep.qzz.io/union-bank/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
