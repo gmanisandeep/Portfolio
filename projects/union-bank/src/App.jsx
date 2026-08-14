@@ -195,6 +195,8 @@ const quickActions = [
   [DownloadSimple, "Download forms", "#all-services"],
 ];
 
+const assetUrl = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 function Reveal({ children, className = "", delay = 0 }) {
   const reduce = useReducedMotion();
   return (
@@ -214,7 +216,7 @@ function Brand() {
   return (
     <a className="brand" href="#top" aria-label="Union Bank concept home">
       <span className="brand-logo-shell">
-        <img src="/assets/union-bank-logo.png" alt="Union Bank of India" />
+        <img src={assetUrl("assets/union-bank-logo.png")} alt="Union Bank of India" width="309" height="53" />
       </span>
     </a>
   );
@@ -222,11 +224,17 @@ function Brand() {
 
 function Header({ onLogin, theme, onTheme }) {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const closeMenu = (event) => event.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", closeMenu);
+    return () => document.removeEventListener("keydown", closeMenu);
+  }, []);
+
   return (
     <header className="site-header">
       <div className="nav-shell">
         <Brand />
-        <nav className={open ? "nav-links open" : "nav-links"} aria-label="Main navigation">
+        <nav id="main-navigation" className={open ? "nav-links open" : "nav-links"} aria-label="Main navigation">
           <a href="#services" onClick={() => setOpen(false)}>Accounts</a>
           <a href="#all-services" onClick={() => setOpen(false)}>All services</a>
           <a href="#life" onClick={() => setOpen(false)}>Life & money</a>
@@ -236,8 +244,8 @@ function Header({ onLogin, theme, onTheme }) {
           <button className="icon-button" onClick={onTheme} aria-label="Toggle color theme">
             {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
           </button>
-          <button className="login-button" onClick={onLogin}><LockKey size={17} /> Login</button>
-          <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+          <button className="login-button" onClick={onLogin} aria-label="Login securely"><LockKey size={17} /><span>Login</span></button>
+          <button className="menu-button" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="main-navigation">
             {open ? <X size={23} /> : <List size={23} />}
           </button>
         </div>
@@ -250,13 +258,32 @@ function LoginModal({ open, onClose }) {
   const dialogRef = useRef(null);
   useEffect(() => {
     if (!open) return;
-    const onKey = (event) => event.key === "Escape" && onClose();
+    const previousFocus = document.activeElement;
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = [...dialogRef.current.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", onKey);
     document.body.classList.add("modal-open");
     dialogRef.current?.focus();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.classList.remove("modal-open");
+      previousFocus?.focus();
     };
   }, [open, onClose]);
 
@@ -308,7 +335,16 @@ function Hero({ onLogin }) {
           </div>
         </motion.div>
         <motion.div className="hero-visual" initial={reduce ? false : { opacity: 0, x: 34 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
-          <img src="/assets/hero-genz.png" alt="Young Indian friends using a smartphone together" />
+          <img
+            src={assetUrl("assets/hero-genz-1200.webp")}
+            srcSet={`${assetUrl("assets/hero-genz-640.webp")} 640w, ${assetUrl("assets/hero-genz-1200.webp")} 1200w`}
+            sizes="(max-width: 980px) calc(100vw - 32px), 56vw"
+            alt="Young Indian friends using a smartphone together"
+            width="1200"
+            height="637"
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="hero-note">
             <QrCode size={26} />
             <span><strong>Tap. Pay. Done.</strong><small>UPI that keeps up</small></span>
@@ -353,7 +389,18 @@ function Services() {
           const Icon = item.icon;
           return (
             <Reveal key={item.title} delay={index * 0.05} className={`service-card ${item.size} ${item.tone}`}>
-              {item.tone === "photo" && <img src="/assets/creator-studio.png" alt="Young Indian creators planning their business" />}
+              {item.tone === "photo" && (
+                <img
+                  src={assetUrl("assets/creator-studio-1100.webp")}
+                  srcSet={`${assetUrl("assets/creator-studio-640.webp")} 640w, ${assetUrl("assets/creator-studio-1100.webp")} 1100w`}
+                  sizes="(max-width: 720px) calc(100vw - 32px), (max-width: 980px) calc(100vw - 48px), 34vw"
+                  alt="Young Indian creators planning their business"
+                  width="1100"
+                  height="825"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
               <div className="service-content">
                 <Icon size={30} weight="duotone" />
                 <div><h3>{item.title}</h3><p>{item.copy}</p></div>
@@ -388,7 +435,7 @@ function AllServices() {
       <div className="service-search">
         <MagnifyingGlass size={22} />
         <label htmlFor="service-search">Search all services</label>
-        <input id="service-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try tax, loan, FASTag or nomination" />
+        <input id="service-search" name="service-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Try tax, loan, FASTag or nomination…" autoComplete="off" />
         {query && <button onClick={() => setQuery("")} aria-label="Clear service search"><X size={18} /></button>}
       </div>
 
@@ -448,7 +495,18 @@ function LifeMoney() {
   const points = ["Quick UPI payments", "Smart spending view", "Card controls in one place"];
   return (
     <section className="life section-shell" id="life">
-      <Reveal className="life-image"><img src="/assets/cafe-banking.png" alt="Young woman using mobile banking at a cafe" /></Reveal>
+      <Reveal className="life-image">
+        <img
+          src={assetUrl("assets/cafe-banking-900.webp")}
+          srcSet={`${assetUrl("assets/cafe-banking-640.webp")} 640w, ${assetUrl("assets/cafe-banking-900.webp")} 900w`}
+          sizes="(max-width: 720px) calc(100vw - 32px), 50vw"
+          alt="Young woman using mobile banking at a cafe"
+          width="900"
+          height="1352"
+          loading="lazy"
+          decoding="async"
+        />
+      </Reveal>
       <Reveal className="life-copy" delay={0.08}>
         <p className="eyebrow">Union ease</p>
         <h2>Your bank fits in your life.</h2>
@@ -456,7 +514,7 @@ function LifeMoney() {
         <div className="point-list">
           {points.map((point) => <span key={point}><CheckCircle size={20} weight="fill" /> {point}</span>)}
         </div>
-        <button className="secondary-button">Discover mobile banking</button>
+        <a className="secondary-button" href={officialServiceGroups[0].items[6][1]} target="_blank" rel="noreferrer">Discover mobile banking <ArrowRight size={18} /></a>
       </Reveal>
     </section>
   );
@@ -530,11 +588,11 @@ function Support() {
       <Reveal className="faq-list" delay={0.08}>
         {faqs.map(([question, answer], index) => (
           <div className="faq-item" key={question}>
-            <button onClick={() => setActive(active === index ? -1 : index)} aria-expanded={active === index}>
+            <button onClick={() => setActive(active === index ? -1 : index)} aria-expanded={active === index} aria-controls={`faq-answer-${index}`}>
               {question}<CaretDown size={20} className={active === index ? "rotated" : ""} />
             </button>
             <AnimatePresence initial={false}>
-              {active === index && <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>{answer}</motion.p>}
+              {active === index && <motion.p id={`faq-answer-${index}`} role="region" aria-label={question} initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>{answer}</motion.p>}
             </AnimatePresence>
           </div>
         ))}
@@ -553,7 +611,7 @@ function Footer({ onLogin }) {
       <div className="section-shell footer-links">
         <div><strong>Banking</strong><a href="#services">Accounts</a><a href="#services">Cards</a><a href="#services">Loans</a></div>
         <div><strong>Support</strong><a href="#support">Help centre</a><a href="#support">Fraud awareness</a><a href="#support">Contact</a></div>
-        <div><strong>About</strong><a href="#top">Union Bank</a><a href="#top">Careers</a><a href="#top">Accessibility</a></div>
+        <div><strong>Official links</strong><a href="https://www.unionbankofindia.bank.in/" target="_blank" rel="noreferrer">Union Bank website</a><a href="https://www.unionbankofindia.bank.in/en/common/recruitment" target="_blank" rel="noreferrer">Recruitment</a><a href="https://www.unionbankofindia.bank.in/en/common/customer-care" target="_blank" rel="noreferrer">Customer care</a></div>
       </div>
       <div className="section-shell concept-note">
         <span>Unofficial redesign concept. No affiliation with Union Bank of India.</span>
@@ -569,6 +627,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("concept-theme", theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#141413" : "#f7f7f4");
   }, [theme]);
   return (
     <>
