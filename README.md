@@ -33,6 +33,7 @@ The production build creates route-specific HTML for:
 - `/work/twinkle-ai`
 - `/work/campus-connect`
 - `/work/ghost-rider-fan-archive`
+- `/ghost-rider/` — the complete Ghost Rider archive, embedded in this repository
 
 Netlify configuration is kept in `public/_headers` and `public/_redirects`. Unknown routes use the custom `public/404.html` response instead of an SPA catch-all.
 

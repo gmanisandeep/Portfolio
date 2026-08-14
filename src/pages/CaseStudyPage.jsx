@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, ShieldCheck } from 'lucide-react';
 import { projects, site } from '../data/portfolio';
 import PageMeta from '../seo/PageMeta';
 import ProjectMedia from '../ui/ProjectMedia';
+import LiveSiteLink from '../ui/LiveSiteLink';
 import { Footer, Header, ScrollProgress } from '../ui/SiteChrome';
 
 export default function CaseStudyPage({ project }) {
@@ -17,7 +18,7 @@ export default function CaseStudyPage({ project }) {
 
   return <><PageMeta title={title} description={description} path={`/work/${project.slug}`} image={image} /><ScrollProgress /><a className="skip-link" href="#case-main">Skip to content</a><Header internal /><main id="case-main" className="case-main">
     <header id="top" className="case-hero"><div className="shell"><a className="back-link" href="/#work"><ArrowLeft /> All work</a><div className="case-title"><p className="folio">{project.type} · {project.status} · {project.year}</p><h1>{project.title}</h1><p className="case-summary">{project.summary}</p>{project.disclaimer ? <p className="case-disclaimer"><ShieldCheck size={18} /> {project.disclaimer}</p> : null}</div><div className="case-facts"><div><span>Role</span><strong>{project.contribution}</strong></div><div><span>Category</span><strong>{project.category}</strong></div><div><span>Stack</span><strong>{project.tech.join(' · ')}</strong></div></div></div></header>
-    <section className="case-visual"><div className="shell"><div className="case-image"><ProjectMedia project={project} eager compact /></div>{project.url && <a className="button button-red" href={project.url} target="_blank" rel="noreferrer">View live site <ExternalLink /></a>}</div></section>
+    <section className="case-visual"><div className="shell"><div className="case-image"><ProjectMedia project={project} eager compact /></div>{project.url && <LiveSiteLink className="button button-red" project={project} />}</div></section>
     <section className="case-story"><div className="shell"><div className="case-story-intro"><p className="folio">01 / Context</p><h2>The work behind the interface.</h2></div><div className="case-narrative"><article><span>Problem</span><h3>What needed to change</h3><p>{project.problem}</p></article><article><span>Contribution</span><h3>What I owned</h3><p>{project.role}</p></article><article><span>Direction</span><h3>What I built</h3><p>{project.solution}</p></article><article className="case-outcome"><span>Outcome</span><h3>What can be verified</h3><p>{project.outcome}</p></article></div></div></section>
     <section className="case-decisions"><div className="shell"><div><p className="folio">02 / Constraints</p><h2>Decisions shaped by reality.</h2></div><div className="decision-columns"><article><h3>Constraints</h3><ul>{project.constraints.map(item => <li key={item}>{item}</li>)}</ul></article><article><h3>Key decisions</h3><ul>{project.decisions.map(item => <li key={item}>{item}</li>)}</ul></article></div></div></section>
     {project.detail && <section className="case-detail" aria-labelledby="detail-title"><div className="shell"><h2 id="detail-title" className="visually-hidden">Feature detail</h2><img src={project.detail} width={project.detailWidth || project.width} height={project.detailHeight || project.height} loading="lazy" decoding="async" alt={project.detailAlt || `${project.title} genuine feature detail`} /></div></section>}
